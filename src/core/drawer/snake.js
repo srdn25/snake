@@ -1,4 +1,5 @@
 const cfg = require('../config');
+const { generateApple } = require('./apple');
 
 const config = cfg.getConfig();
 
@@ -24,25 +25,40 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 const moveUpdate = (point) => {
+  let eat = false;
   const snakeCoords = config.coordinates.snake;
   const node = document.querySelector('#game');
   const ctx = node.getContext('2d');
+
+  if (point.x === config.coordinates.apple.x && point.y === config.coordinates.apple.y) {
+    eat = true;
+    cfg.updateData('coordinates', {
+      ...config.coordinates,
+      apple: null,
+    });
+
+    generateApple();
+  }
 
   // TODO: check this point
   // if (point in snakeCoords) = game over
 
   snakeCoords.unshift(point);
-  const oldPoint = snakeCoords.pop();
-  cfg.updateData('coordinates', {
-    ...config.coordinates,
-    snake: snakeCoords,
-  });
+
+  if (!eat) {
+    const oldPoint = snakeCoords.pop();
+
+    ctx.fillStyle = config.style.backgroundColor;
+    ctx.fillRect(oldPoint.x, oldPoint.y, config.cellSize + 1, config.cellSize + 1);
+  }
 
   ctx.fillStyle = config.style.snakeColor;
   ctx.fillRect(point.x, point.y, config.cellSize, config.cellSize);
 
-  ctx.fillStyle = config.style.backgroundColor;
-  ctx.fillRect(oldPoint.x, oldPoint.y, config.cellSize + 1, config.cellSize + 1);
+  cfg.updateData('coordinates', {
+    ...config.coordinates,
+    snake: snakeCoords,
+  });
 };
 
 const move = (direction) => {

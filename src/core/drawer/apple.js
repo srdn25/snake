@@ -1,7 +1,11 @@
 const { getRandom } = require('../utility/index');
 const config = require('../config').getConfig();
 
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
+  generateApple();
+});
+
+const generateApple = () => {
   const node = document.querySelector('#game');
 
   const ctx = node.getContext('2d');
@@ -10,5 +14,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
   config.coordinates.apple = { x, y };
   ctx.fillStyle = config.style.appleColor;
   ctx.fillRect(x, y, config.cellSize, config.cellSize);
-});
+};
 
+module.exports = {
+  generateApple,
+};
