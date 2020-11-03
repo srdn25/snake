@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const x = getRandom(5, config.width - config.cellSize);
   const y = getRandom(5, config.height - config.cellSize);
   config.coordinates.apple = { x, y };
-  ctx.fillStyle = 'red';
+  ctx.fillStyle = config.style.appleColor;
   ctx.fillRect(x, y, config.cellSize, config.cellSize);
 });
 

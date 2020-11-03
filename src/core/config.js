@@ -7,6 +7,8 @@ module.exports = (() => {
     style: {
       borderBackgroundColor: 'red',
       backgroundColor: 'black',
+      snakeColor: 'green',
+      appleColor: 'red',
     },
     coordinates: {
       apple: null,

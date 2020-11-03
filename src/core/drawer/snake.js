@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       const y = clickEvt.clientY - (config.cellSize/2);
 
       if (x < config.width && y < config.width) {
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = config.style.snakeColor;
         ctx.fillRect(x, y, config.cellSize, config.cellSize);
         config.coordinates.snake.push({ x, y });
       }
@@ -24,16 +24,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 const moveUpdate = (point) => {
   const snakeCoords = config.coordinates.snake;
+  const node = document.querySelector('#game');
+  const ctx = node.getContext('2d');
 
   // TODO: check this point
   // if (snakeCoords)
   snakeCoords.push(point);
   const oldPoint = snakeCoords.pop();
 
-  pubSub.publish(config.pubSubChannels.snake.move, {
-    point,
-    oldPoint,
-  });
+  console.log({oldPoint, point, snakeCoords})
+
+  ctx.fillStyle = config.style.snakeColor;
+  ctx.fillRect(point.x, point.y, config.cellSize, config.cellSize);
+
+  ctx.fillStyle = config.style.backgroundColor;
+  ctx.fillRect(oldPoint.x, oldPoint.y, config.cellSize, config.cellSize);
 };
 
 const move = (direction) => {
@@ -43,14 +48,14 @@ const move = (direction) => {
   switch (direction) {
     case 'right':
       moveUpdate({
-        x: currentCoordinates.x + config.cellSize + (config.cellSize / 2),
+        x: currentCoordinates.x + config.cellSize * 2,
         y: currentCoordinates.y,
       });
       break;
 
     case 'left':
       moveUpdate({
-        x: currentCoordinates.x - config.cellSize + (config.cellSize / 2),
+        x: currentCoordinates.x - config.cellSize * 2,
         y: currentCoordinates.y,
       });
       break;
@@ -58,14 +63,14 @@ const move = (direction) => {
     case 'up':
       moveUpdate({
         x: currentCoordinates.x,
-        y: currentCoordinates.y - config.cellSize + (config.cellSize / 2),
+        y: currentCoordinates.y - config.cellSize * 2,
       });
       break;
 
     case 'down':
       moveUpdate({
         x: currentCoordinates.x,
-        y: currentCoordinates.y + config.cellSize + (config.cellSize / 2),
+        y: currentCoordinates.y + config.cellSize * 2,
       });
       break;
 
