@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       const x = clickEvt.clientX - (config.cellSize/2);
       const y = clickEvt.clientY - (config.cellSize/2);
 
-      if (x < config.width && y < config.width) {
+      if (x < config.width && y < config.width && !config.coordinates.snake.length) {
         ctx.fillStyle = config.style.snakeColor;
         ctx.fillRect(x, y, config.cellSize, config.cellSize);
         config.coordinates.snake.push({ x, y });
