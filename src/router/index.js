@@ -1,5 +1,5 @@
 const ping = (req, res) => {
-  const { method, url, headers } = req;
+  const { method, url } = req;
 
   if (method === 'GET' && url === '/ping') {
     res.statusCode = 200;
