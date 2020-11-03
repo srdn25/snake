@@ -14,7 +14,7 @@ module.exports = (() => {
       apple: null,
       snake: [],
     },
-    cellSize: 15,
+    cellSize: 16,
     controlKeys: {
       87: 'up',
       68: 'right',
