@@ -7,7 +7,23 @@ module.exports = (() => {
     style: {
       borderBackgroundColor: 'red',
       backgroundColor: 'black',
-    }
+    },
+    coordinates: {
+      apple: null,
+      snake: [],
+    },
+    cellSize: 15,
+    controlKeys: {
+      87: 'up',
+      68: 'right',
+      65: 'left',
+      83: 'down',
+    },
+    pubSubChannels: {
+      snake: {
+        move: 'SnakeMove',
+      }
+    },
   });
 
   return {
