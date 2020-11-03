@@ -34,5 +34,10 @@ module.exports = (() => {
 
       return instance;
     },
+
+    updateData: function (key, data) {
+      const instance = this.getConfig();
+      instance[key] = data;
+    },
   };
 })();

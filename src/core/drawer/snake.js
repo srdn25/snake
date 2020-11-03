@@ -1,5 +1,6 @@
-const config = require('../config').getConfig();
-const { pubSub } = require('../utility');
+const cfg = require('../config');
+
+const config = cfg.getConfig();
 
 document.addEventListener('DOMContentLoaded', (event) => {
   document.addEventListener('click', (clickEvt) => {
@@ -28,34 +29,36 @@ const moveUpdate = (point) => {
   const ctx = node.getContext('2d');
 
   // TODO: check this point
-  // if (snakeCoords)
-  snakeCoords.push(point);
-  const oldPoint = snakeCoords.pop();
+  // if (point in snakeCoords) = game over
 
-  console.log({oldPoint, point, snakeCoords})
+  snakeCoords.unshift(point);
+  const oldPoint = snakeCoords.pop();
+  cfg.updateData('coordinates', {
+    ...config.coordinates,
+    snake: snakeCoords,
+  });
 
   ctx.fillStyle = config.style.snakeColor;
   ctx.fillRect(point.x, point.y, config.cellSize, config.cellSize);
 
   ctx.fillStyle = config.style.backgroundColor;
-  ctx.fillRect(oldPoint.x, oldPoint.y, config.cellSize, config.cellSize);
+  ctx.fillRect(oldPoint.x, oldPoint.y, config.cellSize + 1, config.cellSize + 1);
 };
 
 const move = (direction) => {
   const currentCoordinates = config.coordinates.snake[0];
-  console.log(direction);
 
   switch (direction) {
     case 'right':
       moveUpdate({
-        x: currentCoordinates.x + config.cellSize * 2,
+        x: currentCoordinates.x + (config.cellSize + 1),
         y: currentCoordinates.y,
       });
       break;
 
     case 'left':
       moveUpdate({
-        x: currentCoordinates.x - config.cellSize * 2,
+        x: currentCoordinates.x - (config.cellSize + 1),
         y: currentCoordinates.y,
       });
       break;
@@ -63,14 +66,14 @@ const move = (direction) => {
     case 'up':
       moveUpdate({
         x: currentCoordinates.x,
-        y: currentCoordinates.y - config.cellSize * 2,
+        y: currentCoordinates.y - (config.cellSize + 1),
       });
       break;
 
     case 'down':
       moveUpdate({
         x: currentCoordinates.x,
-        y: currentCoordinates.y + config.cellSize * 2,
+        y: currentCoordinates.y + (config.cellSize + 1),
       });
       break;
 
