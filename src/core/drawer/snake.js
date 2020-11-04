@@ -45,6 +45,15 @@ const moveUpdate = (point) => {
     generateApple();
   }
 
+  console.log({
+    x: point.x === config.coordinates.apple.x,
+    y: point.y === config.coordinates.apple.y,
+    px: point.x,
+    py: point.y,
+    ax: config.coordinates.apple.x,
+    ay: config.coordinates.apple.y,
+    eat,
+  });
   // TODO: check this point
   // if (point in snakeCoords) = game over
 
@@ -72,14 +81,14 @@ const move = (direction) => {
   switch (direction) {
     case 'right':
       moveUpdate({
-        x: currentCoordinates.x + (config.cellSize + 1),
+        x: currentCoordinates.x + config.cellSize,
         y: currentCoordinates.y,
       });
       break;
 
     case 'left':
       moveUpdate({
-        x: currentCoordinates.x - (config.cellSize + 1),
+        x: currentCoordinates.x - config.cellSize,
         y: currentCoordinates.y,
       });
       break;
@@ -87,14 +96,14 @@ const move = (direction) => {
     case 'up':
       moveUpdate({
         x: currentCoordinates.x,
-        y: currentCoordinates.y - (config.cellSize + 1),
+        y: currentCoordinates.y - config.cellSize,
       });
       break;
 
     case 'down':
       moveUpdate({
         x: currentCoordinates.x,
-        y: currentCoordinates.y + (config.cellSize + 1),
+        y: currentCoordinates.y + config.cellSize,
       });
       break;
 
