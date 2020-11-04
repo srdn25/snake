@@ -12,6 +12,8 @@ const generateApple = () => {
   let x = getRandom(5, config.width - config.cellSize);
   let y = getRandom(5, config.height - config.cellSize);
 
+  // TODO: apple should not on snake
+
   // point should be in cell
   x = x - Math.floor(x % config.cellSize);
   y = y - Math.floor(y % config.cellSize);

@@ -3,6 +3,12 @@ const { generateApple } = require('./apple');
 
 const config = cfg.getConfig();
 
+/** If 'true' => game over */
+const RULES_GAME_OVER = [
+  // snake cant touch self
+  (point) => !!config.coordinates.snake.filter((coord) => coord.x === point.x && coord.y === point.y).length,
+];
+
 document.addEventListener('DOMContentLoaded', (event) => {
   document.addEventListener('click', (clickEvt) => {
     const node = document.querySelector('#game');
@@ -31,6 +37,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 const moveUpdate = (point) => {
   let eat = false;
+  let gameOver = false;
   const snakeCoords = config.coordinates.snake;
   const node = document.querySelector('#game');
   const ctx = node.getContext('2d');
@@ -45,17 +52,25 @@ const moveUpdate = (point) => {
     generateApple();
   }
 
-  console.log({
-    x: point.x === config.coordinates.apple.x,
-    y: point.y === config.coordinates.apple.y,
-    px: point.x,
-    py: point.y,
-    ax: config.coordinates.apple.x,
-    ay: config.coordinates.apple.y,
-    eat,
-  });
   // TODO: check this point
   // if (point in snakeCoords) = game over
+  RULES_GAME_OVER.forEach((rule) => {
+    if (rule(point)) {
+      config.coordinates.snake.forEach(({ x, y }) => {
+        ctx.fillStyle = config.style.backgroundColor;
+        ctx.fillRect(x, y, config.cellSize, config.cellSize);
+      });
+
+      cfg.updateData('coordinates', {
+        ...config.coordinates,
+        snake: [],
+      });
+
+      return gameOver = true;
+    }
+  });
+
+  if (gameOver) return null;
 
   snakeCoords.unshift(point);
 
@@ -63,7 +78,7 @@ const moveUpdate = (point) => {
     const oldPoint = snakeCoords.pop();
 
     ctx.fillStyle = config.style.backgroundColor;
-    ctx.fillRect(oldPoint.x, oldPoint.y, config.cellSize + 1, config.cellSize + 1);
+    ctx.fillRect(oldPoint.x, oldPoint.y, config.cellSize, config.cellSize);
   }
 
   ctx.fillStyle = config.style.snakeColor;
