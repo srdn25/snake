@@ -1,5 +1,6 @@
-const config = require('./config').getConfig();
-const { pubSub } = require('./utility');
+const cfg = require('./config');
+
+const config = cfg.getConfig();
 
 require('./drawer/background');
 require('./drawer/apple');
@@ -8,9 +9,7 @@ const snake = require('./drawer/snake');
 document.addEventListener('DOMContentLoaded', () => {
   const node = document.querySelector('#game');
 
-  config.playWindowCoordinates = node.getBoundingClientRect();
-
-  // pubSub.subscribe(config.pubSubChannels.snake.move, , 'coreListener');
+  cfg.updateData('playWindowCoordinates', node.getBoundingClientRect());
 
   document.addEventListener('keydown', (event) => {
     if (Object.keys(config.controlKeys).includes(`${event.keyCode}`)) {

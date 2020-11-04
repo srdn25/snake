@@ -7,6 +7,12 @@ const config = cfg.getConfig();
 const RULES_GAME_OVER = [
   // snake cant touch self
   (point) => !!config.coordinates.snake.filter((coord) => coord.x === point.x && coord.y === point.y).length,
+
+  // snake cant move over display
+  (point) => point.y > config.playWindowCoordinates.bottom
+    || point.y < config.playWindowCoordinates.top
+    || point.x > config.playWindowCoordinates.right
+    || point.x < config.playWindowCoordinates.left,
 ];
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -52,8 +58,6 @@ const moveUpdate = (point) => {
     generateApple();
   }
 
-  // TODO: check this point
-  // if (point in snakeCoords) = game over
   RULES_GAME_OVER.forEach((rule) => {
     if (rule(point)) {
       config.coordinates.snake.forEach(({ x, y }) => {

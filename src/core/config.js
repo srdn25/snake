@@ -26,6 +26,7 @@ module.exports = (() => {
         move: 'SnakeMove',
       }
     },
+    playWindowCoordinates: {},
   });
 
   return {
