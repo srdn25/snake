@@ -13,7 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('keydown', (event) => {
     if (Object.keys(config.controlKeys).includes(`${event.keyCode}`)) {
-      snake.move(config.controlKeys[event.keyCode]);
+      if (config.snakeDirection !== config.controlKeys[event.keyCode]) {
+        clearInterval(config.snake.snakeInterval);
+
+        const interval = setInterval(() => snake.move(config.controlKeys[event.keyCode]), config.snake.speed);
+        cfg.updateData('snake', {
+          ...config.snake,
+          snakeInterval: interval
+        });
+      }
     }
   });
 });

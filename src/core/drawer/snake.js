@@ -96,6 +96,10 @@ const moveUpdate = (point) => {
 
 const move = (direction) => {
   const currentCoordinates = config.coordinates.snake[0];
+  cfg.updateData('snake', {
+    ...config.snake,
+    snakeDirection: direction,
+  });
 
   switch (direction) {
     case 'right':

@@ -14,6 +14,13 @@ module.exports = (() => {
       apple: null,
       snake: [],
     },
+    snake: {
+      snakeDirection: null,
+      snakeInterval: null,
+      upriseSpeedStep: 3,
+      speed: 800,
+      speedStep: 50,
+    },
     cellSize: 16,
     controlKeys: {
       87: 'up',
