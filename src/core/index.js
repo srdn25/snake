@@ -12,16 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
   cfg.updateData('playWindowCoordinates', node.getBoundingClientRect());
 
   document.addEventListener('keydown', (event) => {
-    if (Object.keys(config.controlKeys).includes(`${event.keyCode}`)) {
-      if (config.snakeDirection !== config.controlKeys[event.keyCode]) {
-        clearInterval(config.snake.snakeInterval);
+    if (config.coordinates.snake.length) {
+      if (Object.keys(config.controlKeys).includes(`${event.keyCode}`)) {
+        if (config.snakeDirection !== config.controlKeys[event.keyCode]) {
+          clearInterval(config.snake.snakeInterval);
 
-        const interval = setInterval(() => snake.move(config.controlKeys[event.keyCode]), config.snake.speed);
-        cfg.updateData('snake', {
-          ...config.snake,
-          snakeInterval: interval
-        });
+          const interval = setInterval(() => snake.move(config.controlKeys[event.keyCode]), config.snake.speed);
+          cfg.updateData('snake', {
+            ...config.snake,
+            snakeInterval: interval
+          });
+        }
       }
+    } else {
+      console.log('Put point for start game');
     }
   });
 });

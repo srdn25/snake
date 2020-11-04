@@ -60,6 +60,8 @@ const moveUpdate = (point) => {
 
   RULES_GAME_OVER.forEach((rule) => {
     if (rule(point)) {
+      console.log('Game over! Your score: ' + config.coordinates.snake.length);
+
       config.coordinates.snake.forEach(({ x, y }) => {
         ctx.fillStyle = config.style.backgroundColor;
         ctx.fillRect(x, y, config.cellSize, config.cellSize);
@@ -81,7 +83,9 @@ const moveUpdate = (point) => {
     }
   });
 
-  if (gameOver) return null;
+  if (gameOver) {
+    return null;
+  }
 
   snakeCoords.unshift(point);
 
