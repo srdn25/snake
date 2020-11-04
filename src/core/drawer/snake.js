@@ -48,6 +48,19 @@ const moveUpdate = (point) => {
   const node = document.querySelector('#game');
   const ctx = node.getContext('2d');
 
+  if (config.coordinates.snake.length % config.snake.upriseSpeedStep === 0) {
+    const level = config.coordinates.snake.length / config.snake.upriseSpeedStep;
+    const calculatedSpeed = config.snake.startSpeed - (level * config.snake.speedStep);
+
+    if (calculatedSpeed !== config.snake.speed && calculatedSpeed > config.snake.maximumSpeed) {
+      cfg.updateData('snake', {
+        ...config.snake,
+        speed: calculatedSpeed,
+      });
+      console.log('Your speed is: ' + calculatedSpeed);
+    }
+  }
+
   if (point.x === config.coordinates.apple.x && point.y === config.coordinates.apple.y) {
     eat = true;
     cfg.updateData('coordinates', {

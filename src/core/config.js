@@ -17,8 +17,10 @@ module.exports = (() => {
     snake: {
       snakeDirection: null,
       snakeInterval: null,
-      upriseSpeedStep: 3,
-      speed: 800,
+      upriseSpeedStep: 1,
+      startSpeed: 400,
+      maximumSpeed: 100,
+      speed: null,
       speedStep: 50,
     },
     cellSize: 16,

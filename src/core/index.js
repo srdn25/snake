@@ -17,6 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (config.snake.snakeDirection !== config.controlKeys[event.keyCode]) {
           clearInterval(config.snake.snakeInterval);
 
+          if (!config.snake.speed) {
+            cfg.updateData('snake', {
+              ...config.snake,
+              speed: config.snake.startSpeed,
+            })
+          }
+
           const interval = setInterval(() => snake.move(config.controlKeys[event.keyCode]), config.snake.speed);
           cfg.updateData('snake', {
             ...config.snake,
