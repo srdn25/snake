@@ -70,6 +70,13 @@ const moveUpdate = (point) => {
         snake: [],
       });
 
+      clearInterval(config.snake.snakeInterval);
+      cfg.updateData('snake', {
+        ...config.snake,
+        snakeInterval: null,
+        snakeDirection: null,
+      });
+
       return gameOver = true;
     }
   });
