@@ -12,12 +12,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if (!config.playWindowCoordinates) {
       console.error('Didnt load canvas coordinates');
     } else {
-      const x = clickEvt.clientX - (config.cellSize/2);
-      const y = clickEvt.clientY - (config.cellSize/2);
+      let x = clickEvt.clientX - (config.cellSize/2);
+      let y = clickEvt.clientY - (config.cellSize/2);
+      console.log({x,y});
 
-      // TODO: point should be in cell, the same for apple
-      // Math.floor(x % config.cellSize) === 0
-      // Math.floor(y % config.cellSize) === 0
+      // point should be in cell
+      x = x - Math.floor(x % config.cellSize);
+      y = y - Math.floor(y % config.cellSize);
 
       if (x < config.width && y < config.width && !config.coordinates.snake.length) {
         ctx.fillStyle = config.style.snakeColor;
