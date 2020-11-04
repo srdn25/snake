@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (event) => {
     if (config.coordinates.snake.length) {
       if (Object.keys(config.controlKeys).includes(`${event.keyCode}`)) {
-        if (config.snakeDirection !== config.controlKeys[event.keyCode]) {
+        if (config.snake.snakeDirection !== config.controlKeys[event.keyCode]) {
           clearInterval(config.snake.snakeInterval);
 
           const interval = setInterval(() => snake.move(config.controlKeys[event.keyCode]), config.snake.speed);
