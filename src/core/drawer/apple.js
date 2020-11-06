@@ -12,9 +12,14 @@ const generateApple = () => {
   let x = getRandom(5, config.width - config.cellSize);
   let y = getRandom(5, config.height - config.cellSize);
 
-  // TODO: apple should not on snake
+  const onSnake = !!config.coordinates.snake.filter((coord) => coord.x === x && coord.y === y).length;
 
-  // point should be in cell
+  if (onSnake) {
+    generateApple();
+    return;
+  }
+
+    // point should be in cell
   x = x - Math.floor(x % config.cellSize);
   y = y - Math.floor(y % config.cellSize);
 

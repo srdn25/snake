@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     } else {
       let x = clickEvt.clientX - (config.cellSize/2);
       let y = clickEvt.clientY - (config.cellSize/2);
-      console.log({x,y});
 
       // point should be in cell
       x = x - Math.floor(x % config.cellSize);

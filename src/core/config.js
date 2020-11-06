@@ -29,6 +29,10 @@ module.exports = (() => {
       68: 'right',
       65: 'left',
       83: 'down',
+      40: 'down',
+      37: 'left',
+      39: 'right',
+      38: 'up',
     },
     pubSubChannels: {
       snake: {
