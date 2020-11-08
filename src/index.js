@@ -32,6 +32,15 @@ server.on('request', (request, response) => {
 
 });
 
+/** Add sockets for event model connection */
+const io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+  socket.on('disconnected', () => {
+    console.log(`Client disconnected connection by socket. Socket: ${socket}`)
+  });
+});
+
 server.listen(PORT, HOST, (err) => {
   if (err) {
     console.error('Error in start server');

@@ -1,3 +1,4 @@
+const server = require('./services/server');
 const cfg = require('./config');
 
 const config = cfg.getConfig();
