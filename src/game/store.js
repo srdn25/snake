@@ -22,6 +22,8 @@ module.exports = (() => {
     coordinates: {
       apple: null,
       snake: [],
+      snakeOldPoint: null,
+      snakeNewPoint: null,
     },
     snake: {
       snakeDirection: null,

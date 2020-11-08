@@ -55,9 +55,13 @@ const moveUpdate = (point) => {
     return null;
   }
 
-  Store.dispatch('coordinates.snake', snakeCoords.slice(1, 0, point));
+  const oldPoint = snakeCoords[snakeCoords.length - 1];
+
+  Store.dispatch('coordinates.snakeNewPoint', point);
+  Store.dispatch('coordinates.snake', [point, ...snakeCoords]);
 
   if (!eat) {
+    Store.dispatch('coordinates.snakeOldPoint', oldPoint);
     Store.dispatch('coordinates.snake', snakeCoords.slice(0, snakeCoords.length));
   }
 };

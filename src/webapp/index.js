@@ -4,15 +4,20 @@ const cfg = require('./config');
 const config = cfg.getConfig();
 
 require('./drawer/background');
-require('./drawer/apple');
+const apple = require('./drawer/apple');
 const snake = require('./drawer/snake');
 
-/**
- * @param {Object[]} point - New Point and old point
- * @param {number} point[].x
- * @param {number} point[].y
- * */
-server.on('snake_move', (data) => snake.moveUpdate(...data));
+server.on('snakeNewPoint', (point) => snake.moveUpdate(point));
+server.on('snakeOldPoint', (point) => snake.clearAfterMove(point));
+server.on('coordinates.apple', (point) => apple.generateApple(point));
+server.on('snakeSpeed', (speed) => cfg.updateData('snake', {
+  ...config.snake,
+  speed,
+}));
+server.on('snakeInterval', (snakeInterval) => cfg.updateData('snake', {
+  ...config.snake,
+  snakeInterval,
+}));
 
 document.addEventListener('DOMContentLoaded', () => {
   const node = document.querySelector('#game');

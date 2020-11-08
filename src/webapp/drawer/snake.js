@@ -45,30 +45,33 @@ const gameOver = (snakeCoordinates) => {
 };
 
 /**
- * Snake moves drawer
+ * Snake moves forward drawer
  * @param {Object} point - Object with new cell { x, y } coordinates
  * @param {number} point.x
  * @param {number} point.y
- * @param {Object} lastPoint - Optional parameter. Pass only if
- * snake didn't eat apple. This coordinates need for delete on board.
- * @param {number} lastPoint.x
- * @param {number} lastPoint.y
  * */
-const moveUpdate = (point, lastPoint = null) => {
+const moveUpdate = (point) => {
   const node = document.querySelector('#game');
   const ctx = node.getContext('2d');
-
-  if (lastPoint) {
-    ctx.fillStyle = config.style.backgroundColor;
-    ctx.fillRect(lastPoint.x, lastPoint.y, config.cellSize, config.cellSize);
-  }
 
   ctx.fillStyle = config.style.snakeColor;
   ctx.fillRect(point.x, point.y, config.cellSize, config.cellSize);
 };
 
+/**
+ * @param {Object} lastPoint - Optional parameter. Pass only if
+ * snake didn't eat apple. This coordinates need for delete on board.
+ * @param {number} lastPoint.x
+ * @param {number} lastPoint.y
+ * */
+const clearAfterMove = (lastPoint) => {
+  ctx.fillStyle = config.style.backgroundColor;
+  ctx.fillRect(lastPoint.x, lastPoint.y, config.cellSize, config.cellSize);
+};
+
 module.exports = {
   moveUpdate,
   gameOver,
+  clearAfterMove,
 };
 

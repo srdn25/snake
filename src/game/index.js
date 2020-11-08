@@ -21,12 +21,34 @@ const listener = (socket) => {
   });
 
   // Handle store update
-  store.listener.on('storeUpdated_coordinates', (data) => {
-    socket.emit('')
+  // unused
+  store.listener.on('storeUpdated_coordinates.snake', (data) => {
+    socket.emit('coordinates.snake', data);
   });
 
-  store.listener.on('storeUpdated_snake', (data) => {
-    socket.emit('')
+  store.listener.on('storeUpdated_coordinates.snakeNewPoint', (point) => {
+    socket.emit('snakeNewPoint', point)
+  });
+
+  store.listener.on('storeUpdated_coordinates.snakeOldPoint', (point) => {
+    socket.emit('snakeOldPoint', point)
+  });
+
+  store.listener.on('storeUpdated_coordinates.apple', (point) => {
+    socket.emit('coordinates.apple', point)
+  });
+
+  // unused
+  store.listener.on('storeUpdated_snake.snakeDirection', (direction) => {
+    socket.emit('snakeDirection', direction)
+  });
+
+  store.listener.on('storeUpdated_snake.snakeInterval', (interval) => {
+    socket.emit('snakeInterval', interval)
+  });
+
+  store.listener.on('storeUpdated_snake.speed', (speed) => {
+    socket.emit('snakeSpeed', speed)
   });
 };
 
