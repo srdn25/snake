@@ -1,4 +1,7 @@
+const Store = require('../store');
 const { getRandom } = require('../utility/index');
+
+const store = Store.get();
 
 const generateApple = () => {
   let x = getRandom(5, config.width - config.cellSize);
@@ -15,7 +18,7 @@ const generateApple = () => {
   x = x - Math.floor(x % config.cellSize);
   y = y - Math.floor(y % config.cellSize);
 
-  store.dispatch('coordinates.apple', { x, y })
+  Store.dispatch('coordinates.apple', { x, y })
 };
 
 module.exports = {

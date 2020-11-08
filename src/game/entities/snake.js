@@ -1,4 +1,7 @@
+const Store = require('store');
 const { generateApple } = require('./apple');
+
+const store = Store.get();
 
 /** If 'true' => game over */
 const RULES_GAME_OVER = [
@@ -22,13 +25,13 @@ const moveUpdate = (point) => {
     const calculatedSpeed = store.snake.startSpeed - (level * store.snake.speedStep);
 
     if (calculatedSpeed !== store.snake.speed && calculatedSpeed > store.snake.maximumSpeed) {
-      store.dispatch('snake.speed', calculatedSpeed);
+      Store.dispatch('snake.speed', calculatedSpeed);
     }
   }
 
   if (point.x === store.coordinates.apple.x && point.y === store.coordinates.apple.y) {
     eat = true;
-    store.dispatch('coordinates.apple', null);
+    Store.dispatch('coordinates.apple', null);
 
     generateApple();
   }
@@ -38,11 +41,11 @@ const moveUpdate = (point) => {
       // TODO: write to store this data, then send to client
       // console.log('Game over! Your score: ' + store.coordinates.snake.length);
 
-      store.dispatch('coordinates.snake', []);
+      Store.dispatch('coordinates.snake', []);
 
       clearInterval(store.snake.snakeInterval);
-      cfg.dispatch('snake.snakeInterval', null);
-      cfg.dispatch('snake.snakeDirection', null);
+      Store.dispatch('snake.snakeInterval', null);
+      Store.dispatch('snake.snakeDirection', null);
 
       return gameOver = true;
     }
@@ -52,17 +55,17 @@ const moveUpdate = (point) => {
     return null;
   }
 
-  store.dispatch('coordinates.snake', snakeCoords.slice(1, 0, point));
+  Store.dispatch('coordinates.snake', snakeCoords.slice(1, 0, point));
 
   if (!eat) {
-    store.dispatch('coordinates.snake', snakeCoords.slice(0, snakeCoords.length));
+    Store.dispatch('coordinates.snake', snakeCoords.slice(0, snakeCoords.length));
   }
 };
 
 const move = (direction) => {
   const currentCoordinates = store.coordinates.snake[0];
 
-  store.dispatch('snake.snakeDirection', direction);
+  Store.dispatch('snake.snakeDirection', direction);
 
   switch (direction) {
     case 'right':

@@ -1,3 +1,7 @@
+const Store = require('./store');
+
+const store = Store.get();
+
 const listener = (socket) => {
   socket.on('change_direction', (direction) => {
     if (store.directions.includes(direction)) {
@@ -5,11 +9,11 @@ const listener = (socket) => {
         clearInterval(store.snake.snakeInterval);
 
         if (!store.snake.speed) {
-          store.dispatch('snake.speed', store.snake.startSpeed);
+          Store.dispatch('snake.speed', store.snake.startSpeed);
         }
 
         const interval = setInterval(() => snake.move(store.controlKeys[event.keyCode]), store.snake.speed);
-        store.dispatch('snake.snakeInterval', interval);
+        Store.dispatch('snake.snakeInterval', interval);
       }
     }
   });
