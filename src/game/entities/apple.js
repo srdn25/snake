@@ -1,14 +1,6 @@
 const { getRandom } = require('../utility/index');
-const config = require('../config').getConfig();
-
-document.addEventListener('DOMContentLoaded', () => {
-  generateApple();
-});
 
 const generateApple = () => {
-  const node = document.querySelector('#game');
-
-  const ctx = node.getContext('2d');
   let x = getRandom(5, config.width - config.cellSize);
   let y = getRandom(5, config.height - config.cellSize);
 
@@ -19,13 +11,11 @@ const generateApple = () => {
     return;
   }
 
-    // point should be in cell
+// point should be in cell
   x = x - Math.floor(x % config.cellSize);
   y = y - Math.floor(y % config.cellSize);
 
-  config.coordinates.apple = {x, y };
-  ctx.fillStyle = config.style.appleColor;
-  ctx.fillRect(x, y, config.cellSize, config.cellSize);
+  store.dispatch('coordinates.apple', { x, y })
 };
 
 module.exports = {
