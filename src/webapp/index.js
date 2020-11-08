@@ -7,17 +7,25 @@ require('./drawer/background');
 require('./drawer/apple');
 const snake = require('./drawer/snake');
 
+/**
+ * @param {Object[]} point - New Point and old point
+ * @param {number} point[].x
+ * @param {number} point[].y
+ * */
+server.on('snake_move', (data) => snake.moveUpdate(...data));
+
 document.addEventListener('DOMContentLoaded', () => {
   const node = document.querySelector('#game');
+  const playWindowCoordinates = node.getBoundingClientRect();
 
   // TODO: Send window size to server
-  cfg.updateData('playWindowCoordinates', node.getBoundingClientRect());
+  server.emit('set_play_window_coordinates', playWindowCoordinates);
+  cfg.updateData('playWindowCoordinates', playWindowCoordinates);
 
   document.addEventListener('keydown', (event) => {
     if (config.coordinates.snake.length) {
       if (Object.keys(config.controlKeys).includes(`${event.keyCode}`)) {
-        // TODO: Send direction to server
-        // config.controlKeys[event.keyCode]
+        server.emit('change_direction', config.controlKeys[event.keyCode])
       }
     } else {
       console.log('Put point for start game');
