@@ -10,6 +10,7 @@ const snake = require('./drawer/snake');
 document.addEventListener('DOMContentLoaded', () => {
   const node = document.querySelector('#game');
 
+  // TODO: Send window size to server
   cfg.updateData('playWindowCoordinates', node.getBoundingClientRect());
 
   document.addEventListener('keydown', (event) => {
