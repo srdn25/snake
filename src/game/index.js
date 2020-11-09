@@ -1,11 +1,16 @@
 const Store = require('./store');
+const apple = require('./entities/apple');
 
 const store = Store.get();
 
 const listener = (socket) => {
   socket.on('set_play_window_coordinates', (playWindowCoordinates) => Store.dispatch('playWindowCoordinates', playWindowCoordinates));
 
-  socket.on('set_first_snake_point', (point) => Store.dispatch('coordinates.snake', [point]));
+  socket.on('set_first_snake_point', (point) => {
+    Store.dispatch('coordinates.snake', [point]);
+
+    apple.generateApple();
+  });
 
   socket.on('change_direction', (direction) => {
     if (store.directions.includes(direction)) {

@@ -4,10 +4,10 @@ const { getRandom } = require('../utility/index');
 const store = Store.get();
 
 const generateApple = () => {
-  let x = getRandom(5, config.width - config.cellSize);
-  let y = getRandom(5, config.height - config.cellSize);
+  let x = getRandom(5, store.width - store.cellSize);
+  let y = getRandom(5, store.height - store.cellSize);
 
-  const onSnake = !!config.coordinates.snake.filter((coord) => coord.x === x && coord.y === y).length;
+  const onSnake = !!store.coordinates.snake.filter((coord) => coord.x === x && coord.y === y).length;
 
   if (onSnake) {
     generateApple();
@@ -15,10 +15,9 @@ const generateApple = () => {
   }
 
   // point should be in cell
-  x = x - Math.floor(x % config.cellSize);
-  y = y - Math.floor(y % config.cellSize);
+  x = x - Math.floor(x % store.cellSize);
+  y = y - Math.floor(y % store.cellSize);
 
-  console.log("Apple created", {x,y})
   Store.dispatch('coordinates.apple', { x, y })
 };
 

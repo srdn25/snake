@@ -61,7 +61,7 @@ module.exports = (() => {
       return instance;
     },
 
-    dispatch: function (key, data, inst = null) {
+    dispatch: function (key, data, inst = null, fullKey = null) {
       if (FORBIDDEN_UPDATE.includes(key)) return;
       if (typeof key !== 'string' && !Array.isArray(key)) {
         throw Error('Key should be string or array');
@@ -71,13 +71,14 @@ module.exports = (() => {
 
       const path = Array.isArray(key) ? key : key.split('.');
       const instance = inst || Store;
+      const rawKey = instance.cellSize ? key : fullKey;
 
       if (path.length === 1) {
         instance[path] = data;
-        Store.listener.emit(`storeUpdated_${key}`, data);
+        Store.listener.emit(`storeUpdated_${rawKey}`, data);
         return;
       }
-      return this.dispatch(path.slice(1), data, instance[path[0]]);
+      return this.dispatch(path.slice(1), data, instance[path[0]], rawKey);
     },
   };
 })();

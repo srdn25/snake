@@ -36,7 +36,8 @@ server.on('request', (request, response) => {
 /** Add sockets for event model connection */
 const io = require('socket.io')(server);
 
-io.on('connection', (socket) => {
+io.on('connect', (socket) => {
+  console.log('Socket connected by ws://127.0.0.1:5135')
 
   // Run game
   game.listener(socket);
