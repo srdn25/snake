@@ -7,14 +7,14 @@ require('./drawer/background');
 const apple = require('./drawer/apple');
 const snake = require('./drawer/snake');
 
-server.on('snakeNewPoint', (point) => snake.moveUpdate(point));
-server.on('snakeOldPoint', (point) => snake.clearAfterMove(point));
-server.on('coordinates.apple', (point) => apple.generateApple(point));
-server.on('snakeSpeed', (speed) => cfg.updateData('snake', {
+server.socket.on('snakeNewPoint', (point) => snake.moveUpdate(point));
+server.socket.on('snakeOldPoint', (point) => snake.clearAfterMove(point));
+server.socket.on('apple', (point) => apple.generateApple(point));
+server.socket.on('snakeSpeed', (speed) => cfg.updateData('snake', {
   ...config.snake,
   speed,
 }));
-server.on('snakeInterval', (snakeInterval) => cfg.updateData('snake', {
+server.socket.on('snakeInterval', (snakeInterval) => cfg.updateData('snake', {
   ...config.snake,
   snakeInterval,
 }));
@@ -23,8 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const node = document.querySelector('#game');
   const playWindowCoordinates = node.getBoundingClientRect();
 
-  // TODO: Send window size to server
-  server.emit('set_play_window_coordinates', playWindowCoordinates);
+  server.socket.emit('set_play_window_coordinates', playWindowCoordinates);
   cfg.updateData('playWindowCoordinates', playWindowCoordinates);
 
   document.addEventListener('keydown', (event) => {

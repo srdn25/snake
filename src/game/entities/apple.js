@@ -14,10 +14,11 @@ const generateApple = () => {
     return;
   }
 
-// point should be in cell
+  // point should be in cell
   x = x - Math.floor(x % config.cellSize);
   y = y - Math.floor(y % config.cellSize);
 
+  console.log("Apple created", {x,y})
   Store.dispatch('coordinates.apple', { x, y })
 };
 

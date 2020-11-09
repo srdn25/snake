@@ -77,7 +77,7 @@ module.exports = (() => {
         Store.listener.emit(`storeUpdated_${key}`, data);
         return;
       }
-      return this.update(path.slice(1), data, instance[path[0]]);
+      return this.dispatch(path.slice(1), data, instance[path[0]]);
     },
   };
 })();

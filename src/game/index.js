@@ -5,6 +5,8 @@ const store = Store.get();
 const listener = (socket) => {
   socket.on('set_play_window_coordinates', (playWindowCoordinates) => Store.dispatch('playWindowCoordinates', playWindowCoordinates));
 
+  socket.on('set_first_snake_point', (point) => Store.dispatch('coordinates.snake', [point]));
+
   socket.on('change_direction', (direction) => {
     if (store.directions.includes(direction)) {
       if (store.snake.snakeDirection !== store.controlKeys[event.keyCode]) {
@@ -35,7 +37,8 @@ const listener = (socket) => {
   });
 
   store.listener.on('storeUpdated_coordinates.apple', (point) => {
-    socket.emit('coordinates.apple', point)
+    console.error('apple', point);
+    socket.emit('apple', point)
   });
 
   // unused

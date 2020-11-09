@@ -1,4 +1,5 @@
 const cfg = require('../config');
+const server = require('../services/server');
 
 const config = cfg.getConfig();
 
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       if (x < config.width && y < config.width && !config.coordinates.snake.length) {
         ctx.fillStyle = config.style.snakeColor;
         ctx.fillRect(x, y, config.cellSize, config.cellSize);
-        // TODO: send point to server
+        server.socket.emit('set_first_snake_point', { x, y });
         config.coordinates.snake.push({ x, y });
       }
     }
@@ -51,6 +52,7 @@ const gameOver = (snakeCoordinates) => {
  * @param {number} point.y
  * */
 const moveUpdate = (point) => {
+  console.log({point})
   const node = document.querySelector('#game');
   const ctx = node.getContext('2d');
 
@@ -65,6 +67,8 @@ const moveUpdate = (point) => {
  * @param {number} lastPoint.y
  * */
 const clearAfterMove = (lastPoint) => {
+  console.log({point})
+
   ctx.fillStyle = config.style.backgroundColor;
   ctx.fillRect(lastPoint.x, lastPoint.y, config.cellSize, config.cellSize);
 };

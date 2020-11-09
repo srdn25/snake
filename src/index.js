@@ -1,4 +1,5 @@
 const http = require('http');
+const game = require('./game');
 
 const {
   ping,
@@ -36,6 +37,10 @@ server.on('request', (request, response) => {
 const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
+
+  // Run game
+  game.listener(socket);
+
   socket.on('disconnected', () => {
     console.log(`Client disconnected connection by socket. Socket: ${socket}`)
   });
