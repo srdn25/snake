@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (event) => {
     if (config.coordinates.snake.length) {
       if (Object.keys(config.controlKeys).includes(`${event.keyCode}`)) {
-        server.emit('change_direction', config.controlKeys[event.keyCode])
+        server.socket.emit('change_direction', config.controlKeys[event.keyCode])
       }
     } else {
       console.log('Put point for start game');

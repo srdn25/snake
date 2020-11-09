@@ -1,5 +1,6 @@
 const Store = require('./store');
 const apple = require('./entities/apple');
+const snake = require('./entities/snake');
 
 const store = Store.get();
 
@@ -14,14 +15,16 @@ const listener = (socket) => {
 
   socket.on('change_direction', (direction) => {
     if (store.directions.includes(direction)) {
-      if (store.snake.snakeDirection !== store.controlKeys[event.keyCode]) {
-        clearInterval(store.snake.snakeInterval);
+      if (store.snake.snakeDirection !== direction) {
+        if (store.snake.snakeInterval) {
+          clearInterval(store.snake.snakeInterval);
+        }
 
         if (!store.snake.speed) {
           Store.dispatch('snake.speed', store.snake.startSpeed);
         }
 
-        const interval = setInterval(() => snake.move(store.controlKeys[event.keyCode]), store.snake.speed);
+        const interval = setInterval(() => snake.move(direction), store.snake.speed);
         Store.dispatch('snake.snakeInterval', interval);
       }
     }
@@ -42,7 +45,6 @@ const listener = (socket) => {
   });
 
   store.listener.on('storeUpdated_coordinates.apple', (point) => {
-    console.error('apple', point);
     socket.emit('apple', point)
   });
 
