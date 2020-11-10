@@ -66,6 +66,9 @@ const moveUpdate = (point) => {
  * @param {number} lastPoint.y
  * */
 const clearAfterMove = (lastPoint) => {
+  const node = document.querySelector('#game');
+  const ctx = node.getContext('2d');
+
   ctx.fillStyle = config.style.backgroundColor;
   ctx.fillRect(lastPoint.x, lastPoint.y, config.cellSize, config.cellSize);
 };

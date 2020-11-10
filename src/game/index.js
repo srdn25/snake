@@ -53,9 +53,10 @@ const listener = (socket) => {
     socket.emit('snakeDirection', direction)
   });
 
-  store.listener.on('storeUpdated_snake.snakeInterval', (interval) => {
-    socket.emit('snakeInterval', interval)
-  });
+  // error when try serialize identifier
+  // store.listener.on('storeUpdated_snake.snakeInterval', (interval) => {
+  //   socket.emit('snakeInterval', interval)
+  // });
 
   store.listener.on('storeUpdated_snake.speed', (speed) => {
     socket.emit('snakeSpeed', speed)

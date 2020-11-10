@@ -56,18 +56,19 @@ const moveUpdate = (point) => {
   }
 
   const oldPoint = snakeCoords[snakeCoords.length - 1];
+  snakeCoords.unshift(point);
 
   Store.dispatch('coordinates.snakeNewPoint', point);
-  Store.dispatch('coordinates.snake', [point, ...snakeCoords]);
+  Store.dispatch('coordinates.snake', snakeCoords);
 
   if (!eat) {
+    const newCoordinates = snakeCoords.slice(0, snakeCoords.length - 1);
     Store.dispatch('coordinates.snakeOldPoint', oldPoint);
-    Store.dispatch('coordinates.snake', snakeCoords.slice(0, snakeCoords.length));
+    Store.dispatch('coordinates.snake', newCoordinates);
   }
 };
 
 const move = (direction) => {
-  console.log('move ', direction)
   const currentCoordinates = store.coordinates.snake[0];
 
   Store.dispatch('snake.snakeDirection', direction);
