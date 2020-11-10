@@ -5,7 +5,10 @@ const snake = require('./entities/snake');
 const store = Store.get();
 
 const listener = (socket) => {
-  socket.on('set_play_window_coordinates', (playWindowCoordinates) => Store.dispatch('playWindowCoordinates', playWindowCoordinates));
+  socket.on('set_play_window_coordinates', (playWindowCoordinates) => {
+    Store.dispatch('playWindowCoordinates', playWindowCoordinates);
+    socket.emit('playWindowCoordinates', playWindowCoordinates);
+  });
 
   socket.on('set_first_snake_point', (point) => {
     Store.dispatch('coordinates.snake', [point]);
