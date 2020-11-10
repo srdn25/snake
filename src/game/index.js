@@ -45,7 +45,11 @@ const listener = (socket) => {
   });
 
   store.listener.on('storeUpdated_coordinates.apple', (point) => {
-    socket.emit('apple', point)
+    if (point) socket.emit('apple', point)
+  });
+
+  store.listener.on('game_over', (score) => {
+    if (score) socket.emit('game_over', score)
   });
 
   // unused

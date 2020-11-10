@@ -10,6 +10,7 @@ const snake = require('./drawer/snake');
 server.socket.on('snakeNewPoint', (point) => snake.moveUpdate(point));
 server.socket.on('snakeOldPoint', (point) => snake.clearAfterMove(point));
 server.socket.on('apple', (point) => apple.generateApple(point));
+server.socket.on('game_over', (score) => console.log(JSON.parse(score)));
 server.socket.on('snakeSpeed', (speed) => cfg.updateData('snake', {
   ...config.snake,
   speed,

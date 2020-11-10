@@ -38,8 +38,10 @@ const moveUpdate = (point) => {
 
   RULES_GAME_OVER.forEach((rule) => {
     if (rule(point)) {
-      // TODO: write to store this data, then send to client
-      // console.log('Game over! Your score: ' + store.coordinates.snake.length);
+      store.listener.emit('game_over', JSON.stringify({
+        score: store.coordinates.snake.length,
+        speed: store.snake.speed,
+      }));
 
       Store.dispatch('coordinates.snake', []);
 
