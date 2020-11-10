@@ -14,15 +14,6 @@ module.exports = (() => {
       apple: null,
       snake: [],
     },
-    snake: {
-      snakeDirection: null,
-      snakeInterval: null,
-      upriseSpeedStep: 1,
-      startSpeed: 400,
-      maximumSpeed: 100,
-      speed: null,
-      speedStep: 50,
-    },
     cellSize: 16,
     controlKeys: {
       87: 'up',
@@ -33,11 +24,6 @@ module.exports = (() => {
       37: 'left',
       39: 'right',
       38: 'up',
-    },
-    pubSubChannels: {
-      snake: {
-        move: 'SnakeMove',
-      }
     },
     playWindowCoordinates: {},
   });

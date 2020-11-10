@@ -2,10 +2,6 @@ const cfg = require('../config');
 
 const config = cfg.getConfig();
 
-document.addEventListener('DOMContentLoaded', () => {
-  generateApple();
-});
-
 /**
  * Apple drawer
  * @param {Object} point - Point with coordinates
@@ -16,7 +12,6 @@ const generateApple = (point) => {
   const node = document.querySelector('#game');
   const ctx = node.getContext('2d');
 
-  console.log({point})
   const { x, y } = point;
 
   cfg.updateData('coordinates', {

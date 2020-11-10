@@ -67,6 +67,7 @@ const moveUpdate = (point) => {
 };
 
 const move = (direction) => {
+  console.log('move ', direction)
   const currentCoordinates = store.coordinates.snake[0];
 
   Store.dispatch('snake.snakeDirection', direction);

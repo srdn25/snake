@@ -14,10 +14,6 @@ server.socket.on('snakeSpeed', (speed) => cfg.updateData('snake', {
   ...config.snake,
   speed,
 }));
-server.socket.on('snakeInterval', (snakeInterval) => cfg.updateData('snake', {
-  ...config.snake,
-  snakeInterval,
-}));
 
 document.addEventListener('DOMContentLoaded', () => {
   const node = document.querySelector('#game');
