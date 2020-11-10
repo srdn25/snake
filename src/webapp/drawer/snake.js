@@ -52,7 +52,6 @@ const gameOver = (snakeCoordinates) => {
  * @param {number} point.y
  * */
 const moveUpdate = (point) => {
-  console.log({point})
   const node = document.querySelector('#game');
   const ctx = node.getContext('2d');
 
@@ -67,8 +66,6 @@ const moveUpdate = (point) => {
  * @param {number} lastPoint.y
  * */
 const clearAfterMove = (lastPoint) => {
-  console.log({point})
-
   ctx.fillStyle = config.style.backgroundColor;
   ctx.fillRect(lastPoint.x, lastPoint.y, config.cellSize, config.cellSize);
 };
